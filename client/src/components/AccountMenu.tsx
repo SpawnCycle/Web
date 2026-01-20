@@ -8,13 +8,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-// import { VscAccount } from "react-icons/vsc";
+import { User } from "lucide-react"
 
 export default function AccountMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" >&nbsp;👤&nbsp;</Button>
+        <Button variant="outline" size="icon" className="text-white rounded-full" ><User size={16}/></Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="start">
         <DropdownMenuGroup>

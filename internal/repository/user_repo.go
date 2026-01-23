@@ -8,9 +8,9 @@ import (
 )
 
 type UserRepository interface {
+	Create(c context.Context, user models.User) error
 	ReadAll(context.Context) ([]models.User, error)
 	ReadByID(c context.Context, id uint) (*models.User, error)
-	Create(c context.Context, user models.User) error
 	Update(c context.Context, user models.User) error
 	Delete(c context.Context, id uint) error
 }
@@ -24,6 +24,10 @@ func NewGormUserRepo() UserRepository {
 	return &GormUserRepo{DB: db}
 }
 
+func (u GormUserRepo) Create(c context.Context, user models.User) error {
+	return gorm.G[models.User](u.DB).Create(c, &user)
+}
+
 func (u GormUserRepo) ReadAll(c context.Context) ([]models.User, error) {
 	users, err := gorm.G[models.User](u.DB).Find(c)
 	if err != nil {
@@ -33,17 +37,20 @@ func (u GormUserRepo) ReadAll(c context.Context) ([]models.User, error) {
 }
 
 func (u GormUserRepo) ReadByID(c context.Context, id uint) (*models.User, error) {
-	return nil, nil
-}
-
-func (u GormUserRepo) Create(c context.Context, user models.User) error {
-	return nil
+	user, err := gorm.G[models.User](u.DB).Where("id = ?", id).First(c)
+	if err != nil {
+		return nil, err
+	}
+	// I still hate having to create a temporary variable for this
+	return &user, nil
 }
 
 func (u GormUserRepo) Update(c context.Context, user models.User) error {
-	return nil
+	_, err := gorm.G[models.User](u.DB).Where("id = ?", user.ID).Updates(c, user)
+	return err
 }
 
 func (u GormUserRepo) Delete(c context.Context, id uint) error {
-	return nil
+	_, err := gorm.G[models.User](u.DB).Where("id = ?", id).Delete(c)
+	return err
 }

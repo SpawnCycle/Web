@@ -1,14 +1,13 @@
 package server
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
 )
 
 func (s *Server) MountRoutes() *Server {
 	r := gin.Default()
-	r.GET("/test", func(c *gin.Context) { c.JSON(http.StatusOK, gin.H{"data": "ok"}) })
+	r.GET("/users", s.userController.ReadAllUsers)
+	r.GET("/users/:id", s.userController.ReadUserByID)
 
 	s.srv.Handler = r
 	return s

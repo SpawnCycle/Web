@@ -2,6 +2,7 @@ package repository
 
 import (
 	"os"
+	"smaash-web/internal/models"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -14,5 +15,6 @@ func NewGormDBConn() *gorm.DB {
 	if err != nil {
 		panic("Failed to connect to database")
 	}
+	db.AutoMigrate(&models.User{})
 	return db
 }

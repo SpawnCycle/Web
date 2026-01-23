@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"smaash-web/internal/repository"
+	"smaash-web/internal/controllers"
 	"syscall"
 	"time"
 
@@ -16,14 +16,13 @@ import (
 )
 
 type Server struct {
-	repo        *repository.Service
-	srv         *http.Server
-	gracePeriod time.Duration
+	srv            *http.Server
+	gracePeriod    time.Duration
+	userController controllers.UsersController
 }
 
-func NewServer(repo *repository.Service) *Server {
+func NewServer(uc controllers.UsersController) *Server {
 	return &Server{
-		repo:        repo,
 		gracePeriod: 10 * time.Second,
 		srv: &http.Server{
 			Addr:              fmt.Sprintf(":%v", os.Getenv("PORT")),
@@ -31,6 +30,7 @@ func NewServer(repo *repository.Service) *Server {
 			ReadHeaderTimeout: 10 * time.Second,
 			WriteTimeout:      30 * time.Second,
 		},
+		userController: uc,
 	}
 }
 

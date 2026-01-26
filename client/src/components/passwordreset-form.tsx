@@ -14,6 +14,7 @@ import {
   FieldLabel,
 } from "./ui/field"
 import { Input } from "./ui/input"
+import { Link } from "react-router-dom"
 
 export function PasswordResetForm({
   className,
@@ -43,7 +44,7 @@ export function PasswordResetForm({
               <Field>
                 <Button type="submit" className="text-white">Reset Password</Button>
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="#signup-form">Sign up</a>
+                  Don&apos;t have an account? <Link to="/signup">Sign up</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>

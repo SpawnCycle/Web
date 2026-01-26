@@ -13,6 +13,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { Link } from "react-router-dom"
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
   return (
@@ -61,7 +62,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
               <Field>
                 <Button type="submit" className="text-white">Create Account</Button>
                 <FieldDescription className="px-6 text-center">
-                  Already have an account? <a href="#login-form">Sign in</a>
+                  Already have an account? <Link to="/login">Sign in</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>

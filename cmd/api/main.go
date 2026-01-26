@@ -16,8 +16,8 @@ func main() {
 	authnService := services.NewAuthenticationService(userRepo)
 
 	srv := server.NewServer(
-		*controllers.NewUserController(userStatsService),
-		*controllers.NewAuthnController(authnService),
+		controllers.NewUserController(userStatsService),
+		controllers.NewAuthnController(authnService),
 	).MountRoutes()
 
 	if err := srv.Run(appContext); err != nil {

@@ -18,11 +18,11 @@ import (
 type Server struct {
 	srv             *http.Server
 	gracePeriod     time.Duration
-	userController  controllers.UsersController
-	authnController controllers.AuthnController
+	userController  *controllers.UsersController
+	authnController *controllers.AuthnController
 }
 
-func NewServer(uc controllers.UsersController, ac controllers.AuthnController) *Server {
+func NewServer(uc *controllers.UsersController, ac *controllers.AuthnController) *Server {
 	return &Server{
 		gracePeriod: 10 * time.Second,
 		srv: &http.Server{

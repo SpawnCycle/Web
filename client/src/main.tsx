@@ -3,20 +3,25 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { LoginForm } from './components/login-form.tsx';
-import { SignupForm } from './components/signup-form.tsx';
-import { PasswordResetForm } from './components/passwordreset-form.tsx';
+import { LoginForm } from './components/Forms/login-form.tsx';
+import { SignupForm } from './components/Forms/signup-form.tsx';
+import { PasswordResetForm } from './components/Forms/passwordreset-form.tsx';
+import { ReleasesPage } from './components/pages/releases-page.tsx';
+import { AboutPage } from './components/pages/about-page.tsx';
+import { GalleryPage } from './components/pages/gallery-page.tsx';
+import { WebstorePage } from './components/pages/webstore-page.tsx';
+import { NewsPage } from './components/pages/news-page.tsx';
 
 const router = createBrowserRouter([
   { path: "/app", element: <App /> },
   { path: "/app/login", element: <LoginForm className="w-100" /> },
   { path: "/app/signup", element: <SignupForm className="w-100" /> },
   { path: "/app/reset-password", element: <PasswordResetForm className="w-100" /> },
-  // {path: "/about", element: <AboutPage />},
-  // {path: "/gallery", element: <GalleryPage />},
-  // {path: "/releases", element: <ReleasesPage />},
-  // {path: "/webstore", element: <WebstorePage />},
-  // {path: "news", element: <NewsPage />},
+  {path: "/app/about", element: <AboutPage />},
+  {path: "/app/gallery", element: <GalleryPage />},
+  {path: "/app/releases", element: <ReleasesPage />},
+  {path: "/app/webstore", element: <WebstorePage />},
+  {path: "/app/news", element: <NewsPage />},
 ])
 
 createRoot(document.getElementById('root')!).render(

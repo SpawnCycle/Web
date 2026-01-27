@@ -1,19 +1,19 @@
 import { cn } from "@/lib/utils"
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./ui/card"
+} from "../ui/card"
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from "./ui/field"
-import { Input } from "./ui/input"
+} from "../ui/field"
+import { Input } from "../ui/input"
 import { Link } from "react-router-dom"
 
 export function PasswordResetForm({

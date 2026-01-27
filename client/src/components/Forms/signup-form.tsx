@@ -123,10 +123,12 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                 </FieldDescription>
               </Field>
             )}
-            <Button type="submit" className="text-white w-full">Create Account</Button>
-            <FieldDescription className="px-6 text-center">
-              Already have an account? <Link to="/login">Sign in</Link>
-            </FieldDescription>
+            <Field>
+                <Button type="submit" className="text-white">Create Account</Button>
+                <FieldDescription className="px-6 text-center">
+                  Already have an account? <Link to="/app/login">Sign in</Link>
+                </FieldDescription>
+              </Field>
           </FieldGroup>
         </form>
       </CardContent>

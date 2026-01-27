@@ -1,5 +1,6 @@
 import AccountMenu from "./AccountMenu";
 import { Label } from "@radix-ui/react-dropdown-menu";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
 
@@ -10,19 +11,19 @@ const Navbar = () => {
             <div className="navbar-center">
                 <ul className="nav-links list-none flex m-0 p-0 gap-20">
                     <li className="m-4">
-                        <Label>About Us</Label>
+                        <Link to="/app/about"><Label>About Us</Label></Link>
                     </li>
                     <li className="m-4">
-                        <Label>Gallery</Label>
+                        <Link to="/app/gallery"><Label>Gallery</Label></Link>
                     </li>
                     <li className="m-4">
-                        <Label>Releases</Label>
+                        <Link to="/app/releases"><Label>Releases</Label></Link>
                     </li>
                     <li className="m-4">
-                        <Label>Webstore</Label>
+                        <Link to="/app/webstore"><Label>Webstore</Label></Link>
                     </li>
                     <li className="m-4">
-                        <Label>News</Label>
+                        <Link to="/app/news"><Label>News</Label></Link>
                     </li>
                 </ul>
             </div>

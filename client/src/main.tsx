@@ -11,6 +11,7 @@ import { AboutPage } from './components/pages/about-page.tsx';
 import { GalleryPage } from './components/pages/gallery-page.tsx';
 import { WebstorePage } from './components/pages/webstore-page.tsx';
 import { NewsPage } from './components/pages/news-page.tsx';
+import { NotFoundPage } from './components/pages/NotFound-page.tsx';
 
 const router = createBrowserRouter([
   { path: "/app", element: <App /> },
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
   {path: "/app/releases", element: <ReleasesPage />},
   {path: "/app/webstore", element: <WebstorePage />},
   {path: "/app/news", element: <NewsPage />},
+  {path: "*", element: <NotFoundPage />},
 ])
 
 createRoot(document.getElementById('root')!).render(

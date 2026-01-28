@@ -11,6 +11,28 @@ import {
 import { User } from "lucide-react"
 
 export default function AccountMenu() {
+  const logout = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        console.log("Logout successful");
+      } else {
+        console.error("Logout failed");
+      }
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  }
+
+  const handleLogout = async () => {
+
+    await logout();
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -32,7 +54,7 @@ export default function AccountMenu() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={handleLogout} >
             Log out
           </DropdownMenuItem>
         </DropdownMenuGroup>

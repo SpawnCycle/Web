@@ -1,13 +1,14 @@
 import './App.css'
 import './index.css'
 import { Navigate } from 'react-router-dom';
-
+import React from 'react';
+import { AuthContext } from './context/AuthContext';
 
 function App() {
-  const IsLoggedIn = true; // Replace with actual authentication logic
+  const { isLoggedIn } = React.useContext(AuthContext);
   return (
     <>
-      {IsLoggedIn ? (
+      {isLoggedIn ? (
         <>
           <Navigate to="/app/releases" />
         </>

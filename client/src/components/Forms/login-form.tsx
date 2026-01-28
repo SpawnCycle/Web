@@ -16,6 +16,7 @@ import {
 import { Input } from "../ui/input"
 import { Link } from "react-router-dom"
 import React from "react";
+import { AuthContext } from "@/context/AuthContext";
 
 
 export function LoginForm({
@@ -25,6 +26,7 @@ export function LoginForm({
   const [password, setPassword] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [error, setError] = React.useState("");
+  const { setIsLoggedIn } = React.useContext(AuthContext);
 
   const Login = async () => {
     try {
@@ -37,12 +39,15 @@ export function LoginForm({
       });
       if (response.ok) {
         console.log("Login successful");
+        setIsLoggedIn(true);
       } else {
         setError("Login failed");
+        setIsLoggedIn(false);
       }
     } catch (err) {
       console.error(err);
       setError("An error occurred");
+      setIsLoggedIn(false);
     }
   };
 

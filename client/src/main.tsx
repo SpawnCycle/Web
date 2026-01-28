@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AuthProvider } from './context/AuthProvider';
 import { LoginForm } from './components/Forms/login-form.tsx';
 import { SignupForm } from './components/Forms/signup-form.tsx';
 import { PasswordResetForm } from './components/Forms/passwordreset-form.tsx';
@@ -11,7 +12,7 @@ import { AboutPage } from './components/pages/about-page.tsx';
 import { GalleryPage } from './components/pages/gallery-page.tsx';
 import { WebstorePage } from './components/pages/webstore-page.tsx';
 import { NewsPage } from './components/pages/news-page.tsx';
-import { NotFoundPage } from './components/pages/NotFound-page.tsx';
+import { NotFoundPage } from './components/pages/notfound-page.tsx';
 
 const router = createBrowserRouter([
   { path: "/app", element: <App /> },
@@ -28,9 +29,11 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <div className="bg-linear-to-r from-gray-700 via-black to-gray-700 text-white w-screen h-screen absolute top-0 left-0 flex items-center justify-center">
-      <RouterProvider router={router} />
-      {/*<App />*/}
-    </div>
+    <AuthProvider>
+      <div className="bg-linear-to-r from-gray-700 via-black to-gray-700 text-white w-screen h-screen absolute top-0 left-0 flex items-center justify-center">
+        <RouterProvider router={router} />
+        {/*<App />*/}
+      </div>
+    </AuthProvider>
   </StrictMode >,
 )

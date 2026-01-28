@@ -14,7 +14,7 @@ import {
   FieldLabel,
 } from "../ui/field"
 import { Input } from "../ui/input"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import React from "react";
 import { AuthContext } from "@/context/AuthContext";
 
@@ -27,6 +27,7 @@ export function LoginForm({
   const [email, setEmail] = React.useState("");
   const [error, setError] = React.useState("");
   const { setIsLoggedIn } = React.useContext(AuthContext);
+  const navigate = useNavigate();
 
   const Login = async () => {
     try {
@@ -40,6 +41,7 @@ export function LoginForm({
       if (response.ok) {
         console.log("Login successful");
         setIsLoggedIn(true);
+        navigate("/releases");
       } else {
         setError("Login failed");
         setIsLoggedIn(false);

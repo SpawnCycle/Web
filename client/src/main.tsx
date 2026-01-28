@@ -15,16 +15,21 @@ import { NewsPage } from './components/pages/news-page.tsx';
 import { NotFoundPage } from './components/pages/notfound-page.tsx';
 
 const router = createBrowserRouter([
-  { path: "/app", element: <App /> },
-  { path: "/app/login", element: <LoginForm className="w-100" /> },
-  { path: "/app/signup", element: <SignupForm className="w-100" /> },
-  { path: "/app/reset-password", element: <PasswordResetForm className="w-100" /> },
-  {path: "/app/about", element: <AboutPage />},
-  {path: "/app/gallery", element: <GalleryPage />},
-  {path: "/app/releases", element: <ReleasesPage />},
-  {path: "/app/webstore", element: <WebstorePage />},
-  {path: "/app/news", element: <NewsPage />},
-  {path: "*", element: <NotFoundPage />},
+  { 
+    path: "/", 
+    element: <App />,
+    children: [
+      { path: "/login", element: <LoginForm className="w-100" /> },
+      { path: "/signup", element: <SignupForm className="w-100" /> },
+      { path: "/reset-password", element: <PasswordResetForm className="w-100" /> },
+      { path: "/about", element: <AboutPage /> },
+      { path: "/gallery", element: <GalleryPage /> },
+      { path: "/releases", element: <ReleasesPage /> },
+      { path: "/webstore", element: <WebstorePage /> },
+      { path: "/news", element: <NewsPage /> },
+    ]
+  },
+  { path: "*", element: <NotFoundPage /> },
 ])
 
 createRoot(document.getElementById('root')!).render(

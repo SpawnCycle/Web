@@ -28,9 +28,6 @@ export default function AccountMenu() {
       });
       if (response.ok) {
         console.log("Logout successful");
-        try { localStorage.removeItem("token"); } catch {
-          /* ignore — localStorage may be unavailable in some environments */
-        }
         setIsLoggedIn(false);
         navigate("/app/login", { replace: true });
       } else {

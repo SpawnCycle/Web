@@ -36,14 +36,10 @@ export function LoginForm({
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include", // ensure Set-Cookie (if any) is accepted
         body: JSON.stringify({ email: email, password: password }),
       });
       if (response.ok) {
         console.log("Login successful");
-        try { localStorage.setItem("token", "1"); } catch {
-          /* ignore — localStorage may be unavailable in some environments */
-        }
         setIsLoggedIn(true);
         navigate("/app/releases", { replace: true });
       } else {

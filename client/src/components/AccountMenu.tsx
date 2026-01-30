@@ -1,6 +1,3 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -14,9 +11,6 @@ import {
 import { User } from "lucide-react"
 
 export default function AccountMenu() {
-  const { setIsLoggedIn } = React.useContext(AuthContext);
-  const navigate = useNavigate();
-
   const logout = async () => {
     try {
       const response = await fetch("http://localhost:8080/api/logout", {
@@ -24,12 +18,9 @@ export default function AccountMenu() {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
       });
       if (response.ok) {
         console.log("Logout successful");
-        setIsLoggedIn(false);
-        navigate("/app/login", { replace: true });
       } else {
         console.error("Logout failed");
       }
@@ -39,12 +30,13 @@ export default function AccountMenu() {
   }
 
   const handleLogout = async () => {
+
     await logout();
   }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button size="icon" className="text-white rounded-full" ><User size={16} /></Button>
+        <Button size="icon" className="text-white rounded-full" ><User size={16}/></Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="start">
         <DropdownMenuGroup>

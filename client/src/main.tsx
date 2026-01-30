@@ -15,21 +15,16 @@ import { NewsPage } from './components/pages/news-page.tsx';
 import { NotFoundPage } from './components/pages/notfound-page.tsx';
 
 const router = createBrowserRouter([
-  { 
-    path: "/", 
-    element: <App />,
-    children: [
-      { path: "app/login", element: <LoginForm className="w-100" /> },
-      { path: "app/signup", element: <SignupForm className="w-100" /> },
-      { path: "app/reset-password", element: <PasswordResetForm className="w-100" /> },
-      { path: "app/about", element: <AboutPage /> },
-      { path: "app/gallery", element: <GalleryPage /> },
-      { path: "app/releases", element: <ReleasesPage /> },
-      { path: "app/webstore", element: <WebstorePage /> },
-      { path: "app/news", element: <NewsPage /> },
-    ]
-  },
-  { path: "*", element: <NotFoundPage /> },
+  { path: "/app", element: <App /> },
+  { path: "/app/login", element: <LoginForm className="w-100" /> },
+  { path: "/app/signup", element: <SignupForm className="w-100" /> },
+  { path: "/app/reset-password", element: <PasswordResetForm className="w-100" /> },
+  {path: "/app/about", element: <AboutPage />},
+  {path: "/app/gallery", element: <GalleryPage />},
+  {path: "/app/releases", element: <ReleasesPage />},
+  {path: "/app/webstore", element: <WebstorePage />},
+  {path: "/app/news", element: <NewsPage />},
+  {path: "*", element: <NotFoundPage />},
 ])
 
 createRoot(document.getElementById('root')!).render(
@@ -37,7 +32,8 @@ createRoot(document.getElementById('root')!).render(
     <AuthProvider>
       <div className="bg-linear-to-r from-gray-700 via-black to-gray-700 text-white w-screen h-screen absolute top-0 left-0 flex items-center justify-center">
         <RouterProvider router={router} />
+        {/*<App />*/}
       </div>
     </AuthProvider>
-  </StrictMode>,
+  </StrictMode >,
 )

@@ -1,17 +1,22 @@
 import './App.css'
 import './index.css'
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import React from 'react';
 import { AuthContext } from './context/AuthContext';
 
 function App() {
   const { isLoggedIn } = React.useContext(AuthContext);
-  
-  if (!isLoggedIn) {
-    return <Navigate to="/app/login" replace />;
-  }
-  
-  return <Outlet />;
+  return (
+    <>
+      {isLoggedIn ? (
+        <>
+          <Navigate to="/app/releases" />
+        </>
+      ) : (
+        <Navigate to="/app/login" />
+      )}
+    </>
+  )
 }
 
 export default App

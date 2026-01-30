@@ -115,14 +115,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
               />
               <FieldDescription>Please confirm your password.</FieldDescription>
             </Field>
-            {error && (
-              <Field>
-                <Button type="submit" className="text-white">Create Account</Button>
-                <FieldDescription className="px-6 text-center">
-                  Already have an account? <Link to="/app/login">Sign in</Link>
-                </FieldDescription>
-              </Field>
-            )}
+            {error && <p className="text-red-500">{error}</p>}
             <Field>
                 <Button type="submit" className="text-white">Create Account</Button>
                 <FieldDescription className="px-6 text-center">

@@ -1,20 +1,21 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
-import { Link } from "react-router-dom"
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
 import React from "react";
+import { Navigate } from "react-router-dom";
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
   const [password, setPassword] = React.useState("");
@@ -30,10 +31,16 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: email, password: password, username: username, role: "USER" }),
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          username: username,
+          role: "USER",
+        }),
       });
       if (response.ok) {
         console.log("Signup successful");
+        <Navigate to="/app/login" />;
       } else {
         setError("Signup failed");
       }
@@ -117,14 +124,16 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
             </Field>
             {error && <p className="text-red-500">{error}</p>}
             <Field>
-                <Button type="submit" className="text-white">Create Account</Button>
-                <FieldDescription className="px-6 text-center">
-                  Already have an account? <Link to="/app/login">Sign in</Link>
-                </FieldDescription>
-              </Field>
+              <Button type="submit" className="text-white">
+                Create Account
+              </Button>
+              <FieldDescription className="px-6 text-center">
+                Already have an account? <Link to="/app/login">Sign in</Link>
+              </FieldDescription>
+            </Field>
           </FieldGroup>
         </form>
       </CardContent>
     </Card>
-  )
+  );
 }

@@ -1,23 +1,18 @@
-import { cn } from "@/lib/utils"
-import { Button } from "../ui/button"
+import { cn } from "@/lib/utils";
+import { Navigate } from "react-router-dom";
+import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../ui/card"
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-} from "../ui/field"
-import { Input } from "../ui/input"
-import { Link } from "react-router-dom"
+} from "../ui/card";
+import { Field, FieldDescription, FieldGroup, FieldLabel } from "../ui/field";
+import { Input } from "../ui/input";
+import { Link } from "react-router-dom";
 import React from "react";
 import { AuthContext } from "@/context/AuthContext";
-
 
 export function LoginForm({
   className,
@@ -40,6 +35,7 @@ export function LoginForm({
       if (response.ok) {
         console.log("Login successful");
         setIsLoggedIn(true);
+        <Navigate to="/app/releases" />;
       } else {
         setError("Login failed");
         setIsLoggedIn(false);
@@ -82,7 +78,8 @@ export function LoginForm({
               <Field>
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <Link to="/app/reset-password"
+                  <Link
+                    to="/app/reset-password"
                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                   >
                     Forgot your password?
@@ -98,9 +95,12 @@ export function LoginForm({
               </Field>
               {error && <p className="text-red-500">{error}</p>}
               <Field>
-                <Button type="submit" id="login-button" className="text-white">Login</Button>
+                <Button type="submit" id="login-button" className="text-white">
+                  Login
+                </Button>
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account? <Link to="/app/signup">Sign up</Link>
+                  Don&apos;t have an account?{" "}
+                  <Link to="/app/signup">Sign up</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>
@@ -108,5 +108,5 @@ export function LoginForm({
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

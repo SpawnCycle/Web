@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { Navigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import {
   Card,
@@ -35,7 +34,6 @@ export function LoginForm({
       if (response.ok) {
         console.log("Login successful");
         setIsLoggedIn(true);
-        <Navigate to="/app/releases" />;
       } else {
         setError("Login failed");
         setIsLoggedIn(false);

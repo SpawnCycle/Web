@@ -9,8 +9,8 @@ import {
 } from "../ui/card";
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
-import { Link } from "react-router-dom";
-import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
 import { AuthContext } from "@/context/AuthContext";
 
 export function LoginForm({
@@ -20,9 +20,11 @@ export function LoginForm({
   const [password, setPassword] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [error, setError] = React.useState("");
-  const { setIsLoggedIn } = React.useContext(AuthContext);
+  const { isLoggedIn, setIsLoggedIn } = React.useContext(AuthContext);
+  const navigate = useNavigate()
 
   const Login = async () => {
+    setError("")
     try {
       const response = await fetch("http://localhost:8080/api/login", {
         method: "POST",
@@ -49,6 +51,12 @@ export function LoginForm({
     e.preventDefault();
     await Login();
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/app/releases")
+    }
+  }, [navigate, isLoggedIn])
 
   return (
     <div className={cn("w-100 flex flex-col gap-6", className)} {...props}>

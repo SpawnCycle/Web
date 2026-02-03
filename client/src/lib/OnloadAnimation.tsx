@@ -5,7 +5,7 @@ export function WithOnloadAnimation(WrappedComponent: ComponentType) {
     const [hidden, setHidden] = useState(false);
 
     useEffect(() => {
-      // keep navbar visible on load, then hide after 2s
+      // keep navbar visible on load, then hide after 1.2s
       const timer = setTimeout(() => {
         setHidden(true);
       }, 1200);
@@ -20,7 +20,7 @@ export function WithOnloadAnimation(WrappedComponent: ComponentType) {
         }`}
       >
         <div>
-            <WrappedComponent />
+          <WrappedComponent />
         </div>
       </nav>
     );

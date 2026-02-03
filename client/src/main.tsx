@@ -13,7 +13,7 @@ import { GalleryPage } from "./components/pages/gallery-page.tsx";
 import { WebstorePage } from "./components/pages/webstore-page.tsx";
 import { NewsPage } from "./components/pages/news-page.tsx";
 import { NotFoundPage } from "./components/pages/notfound-page.tsx";
-import { ProfilePage } from "./components/pages/Profile-Dependents/profile-page.tsx";
+import { ProfilePage } from "./components/pages/Profile-Dependents/Profile/profile-page.tsx";
 import { SettingsPage } from "./components/pages/Profile-Dependents/settings-page.tsx";
 
 const router = createBrowserRouter([

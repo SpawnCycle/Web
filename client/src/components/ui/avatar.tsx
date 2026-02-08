@@ -1,14 +1,17 @@
 import * as React from "react";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
+import { ExternalLink } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
 function Avatar({
   className,
   size = "default",
+  children,
   ...props
 }: React.ComponentProps<typeof AvatarPrimitive.Root> & {
   size?: "default" | "sm" | "lg";
+  children?: React.ReactNode;
 }) {
   return (
     <AvatarPrimitive.Root
@@ -19,7 +22,19 @@ function Avatar({
         className,
       )}
       {...props}
-    />
+    >
+      {children}
+
+      <span
+        aria-hidden
+        className={cn(
+          "absolute inset-0 flex items-center justify-center rounded-full bg-gray-700/70 opacity-0 transition-opacity duration-150 pointer-events-none",
+          "group-hover/avatar:opacity-100",
+        )}
+      >
+        <ExternalLink className={cn("size-4 text-white opacity-100")} />
+      </span>
+    </AvatarPrimitive.Root>
   );
 }
 

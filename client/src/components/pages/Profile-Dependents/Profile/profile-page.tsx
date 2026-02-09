@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { UpdateSheet } from "./Update-profile-sheet";
 import { Label } from "@/components/ui/label";
+import { useRef, useState, useEffect } from "react";
 // import {
 //   Alert,
 //   AlertAction,
@@ -17,7 +18,29 @@ const username = "PlaceholderUserName";
 
 export function ProfilePage() {
   const AnimatedNavbar = WithOnloadAnimation(Navbar);
+  const pfpinputRef = useRef<HTMLInputElement>(null);
+  const [avatarSrc, setAvatarSrc] = useState<string>(
+    "https://github.com/shadcn.png",
+  );
 
+  useEffect(() => {
+    return () => {
+      // revoke object URL if any on unmount
+      if (avatarSrc && avatarSrc.startsWith("blob:"))
+        URL.revokeObjectURL(avatarSrc);
+    };
+  }, [avatarSrc]);
+
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    // revoke previous blob url if present
+    setAvatarSrc((prev) => {
+      if (prev && prev.startsWith("blob:")) URL.revokeObjectURL(prev);
+      return url;
+    });
+  };
   return (
     <div className="max-w-full w-full h-full relative flex flex-col items-center justify-start pt-10 bg-linear-to-r from-gray-700 via-black to-gray-700 text-white">
       {
@@ -29,19 +52,30 @@ export function ProfilePage() {
         {/* Left Section */}
         <div className="flex-1 flex items-center justify-center flex-col gap-30">
           <div>
-            <Avatar size="lg">
-              <AvatarImage
-                src="https://github.com/shadcn.png"
-                alt="@shadcn"
-                className="grayscale"
-              />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+            {" "}
+            {/*top area */}
+            <input
+              type="file"
+              ref={pfpinputRef}
+              hidden
+              accept="image/*"
+              onChange={onFileChange}
+            />
+            <div onClick={() => pfpinputRef.current?.click()}>
+              <Avatar size="lg">
+                <AvatarImage src={avatarSrc} alt={username} />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </div>
           </div>
           <div>
+            {" "}
+            {/*middle area */}
             <Label>{username}</Label>
           </div>
           <div>
+            {" "}
+            {/*bottom area */}
             <UpdateSheet />
             {/* <Alert>
               <InfoIcon />

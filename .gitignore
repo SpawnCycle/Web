@@ -33,3 +33,4 @@ go.work.sum
 
 /build/*
 *.db
+/internal/seeder/source/*

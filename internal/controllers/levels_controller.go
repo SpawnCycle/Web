@@ -79,14 +79,18 @@ func (lc *LevelsController) UpdateLevel(c *gin.Context) {
 		return
 	}
 
-	var body dtos.LevelDTO
+	var body dtos.LevelUpdateDTO
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(http.StatusBadRequest, dtos.NewErrResp(err.Error(), c.Request.URL.Path))
 		return
 	}
 
+	if id != body.ID {
+		c.JSON(http.StatusBadRequest, dtos.NewErrResp("ID in path and body do not match", c.Request.URL.Path))
+		return
+	}
+
 	level := models.Level{
-		Model:  gorm.Model{ID: id},
 		Name:   body.Name,
 		ImgUri: body.ImgUri,
 	}

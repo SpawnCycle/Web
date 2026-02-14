@@ -12,7 +12,9 @@ import (
 func main() {
 	appContext := context.Background()
 	userRepo := repository.NewGormUserRepo()
+	playerProfileRepo := repository.NewGormPlayerProfileRepo()
 	userStatsService := services.NewUserStatsService(userRepo)
+	playerProfileService := services.NewPlayerProfileService(playerProfileRepo)
 	authnService := services.NewAuthenticationService(userRepo)
 
 	levelRepo := repository.NewGormLevelRepo()
@@ -20,6 +22,7 @@ func main() {
 	srv := server.NewServer(
 		controllers.NewUserController(userStatsService),
 		controllers.NewAuthnController(authnService),
+		controllers.NewGameAuthController(authnService, playerProfileService, userRepo),
 		controllers.NewLevelsController(levelRepo),
 	).MountRoutes()
 

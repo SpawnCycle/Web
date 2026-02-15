@@ -14,15 +14,14 @@ func main() {
 	userRepo := repository.NewGormUserRepo()
 	playerProfileRepo := repository.NewGormPlayerProfileRepo()
 	userStatsService := services.NewUserStatsService(userRepo)
-	playerProfileService := services.NewPlayerProfileService(playerProfileRepo)
 	authnService := services.NewAuthenticationService(userRepo)
 
 	levelRepo := repository.NewGormLevelRepo()
 
 	srv := server.NewServer(
 		controllers.NewUserController(userStatsService),
-		controllers.NewAuthnController(authnService),
-		controllers.NewGameAuthController(authnService, playerProfileService, userRepo),
+		controllers.NewAuthnController(authnService, playerProfileRepo),
+		controllers.NewGameAuthController(userRepo, playerProfileRepo),
 		controllers.NewLevelsController(levelRepo),
 	).MountRoutes()
 

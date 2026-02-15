@@ -8,7 +8,6 @@ import (
 
 	dtos "smaash-web/internal/DTOs"
 	"smaash-web/internal/repository"
-	"smaash-web/internal/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
@@ -17,20 +16,17 @@ import (
 )
 
 type GameAuthController struct {
-	authService    services.Authentication
-	profileService services.PlayerProfileService
-	userRepo       repository.UserRepository
+	userRepo          repository.UserRepository
+	playerProfileRepo repository.PlayerProfileRepository
 }
 
 func NewGameAuthController(
-	authService services.Authentication,
-	profileService services.PlayerProfileService,
 	userRepo repository.UserRepository,
+	playerProfileRepo repository.PlayerProfileRepository,
 ) *GameAuthController {
 	return &GameAuthController{
-		authService:    authService,
-		profileService: profileService,
-		userRepo:       userRepo,
+		userRepo:          userRepo,
+		playerProfileRepo: playerProfileRepo,
 	}
 }
 
@@ -41,6 +37,7 @@ func (g GameAuthController) GameLogin(c *gin.Context) {
 		return
 	}
 
+	// Get User by email
 	user, err := g.userRepo.ReadByEmail(c.Request.Context(), body.Email)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -54,13 +51,15 @@ func (g GameAuthController) GameLogin(c *gin.Context) {
 		return
 	}
 
+	// Verify password
 	err = bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(body.Password))
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, dtos.NewErrResp("Incorrect password", c.Request.URL.Path))
 		return
 	}
 
-	profile, err := g.profileService.GetProfileByUserID(c.Request.Context(), user.ID)
+	// Get PlayerProfile directly from repository
+	profile, err := g.playerProfileRepo.ReadByUserId(c.Request.Context(), user.ID)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			c.JSON(http.StatusBadRequest, dtos.NewErrResp(
@@ -73,12 +72,14 @@ func (g GameAuthController) GameLogin(c *gin.Context) {
 		return
 	}
 
+	// Update last login directly
 	profile.LastLogin = time.Now()
-	if err := g.profileService.UpdateProfile(c.Request.Context(), profile); err != nil {
+	if err := g.playerProfileRepo.Update(c.Request.Context(), profile); err != nil {
 		c.JSON(http.StatusInternalServerError, dtos.NewErrResp(err.Error(), c.Request.URL.Path))
 		return
 	}
 
+	// Generate token
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"playerProfileId": profile.ID,
 		"userId":          user.ID,
@@ -92,6 +93,7 @@ func (g GameAuthController) GameLogin(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, dtos.NewErrResp(err.Error(), c.Request.URL.Path))
 		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"token":   tokenString,
 		"profile": dtos.PlayerProfileToDTO(*profile),

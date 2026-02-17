@@ -17,11 +17,11 @@ export function SettingsPage() {
       <CardAnimation className="z-0 mt-20">
         <Card className="flex flex-row w-350 h-150 p-10 max-w-full max-h-lg bg-gray-600 border-2 border-green-400">
           {/* Left Section */}
-          <div className="flex-1 flex items-center justify-center flex-col gap-50">
-            <div>
+          <div className="flex-1 flex items-center justify-center flex-col">
+            <div className="mb-4 z-1">
               <Label>Visual</Label>
             </div>
-            <div>
+            <div className="z-1">
               <SettingToggle />
             </div>
             <div></div>

@@ -12,11 +12,10 @@ import (
 func main() {
 	appContext := context.Background()
 	userRepo := repository.NewGormUserRepo()
-	userStatsService := services.NewUserStatsService(userRepo)
 	authnService := services.NewAuthenticationService(userRepo)
 
 	srv := server.NewServer(
-		controllers.NewUserController(userStatsService),
+		controllers.NewUserController(userRepo),
 		controllers.NewAuthnController(authnService),
 	).MountRoutes()
 

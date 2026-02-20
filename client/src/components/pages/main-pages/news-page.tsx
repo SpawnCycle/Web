@@ -1,4 +1,4 @@
-import Navbar from "../../navbar";
+import Navbar from "../../Nav/navbar";
 export function NewsPage() {
   return (
     <div className="p-4">

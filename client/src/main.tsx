@@ -5,9 +5,7 @@ import App from "./App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
 import { SettingsProvider } from "./components/pages/Profile-Dependents/Settings/settings-logic/SettingsContext";
-import { LoginForm } from "./components/Forms/login-form.tsx";
-import { SignupForm } from "./components/Forms/signup-form.tsx";
-import { PasswordResetForm } from "./components/Forms/passwordreset-form.tsx";
+import { PasswordResetForm } from "./components/Forms/Password-reset-form.tsx";
 import { ReleasesPage } from "./components/pages/main-pages/releases-page.tsx";
 import { AboutPage } from "./components/pages/main-pages/about-page.tsx";
 import { GalleryPage } from "./components/pages/main-pages/gallery-page.tsx";
@@ -16,6 +14,8 @@ import { NewsPage } from "./components/pages/main-pages/news-page.tsx";
 import { NotFoundPage } from "./components/pages/main-pages/notfound-page.tsx";
 import { ProfilePage } from "./components/pages/Profile-Dependents/Profile/profile-page.tsx";
 import { SettingsPage } from "./components/pages/Profile-Dependents/Settings/settings-page.tsx";
+import { LoginForm } from "./components/Forms/login-form.tsx";
+import { SignupForm } from "./components/Forms/signup-form.tsx";
 
 const router = createBrowserRouter([
   { path: "/app", element: <App /> },

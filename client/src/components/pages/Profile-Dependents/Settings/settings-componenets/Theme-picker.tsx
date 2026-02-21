@@ -1,9 +1,9 @@
-import { ColorPicker } from "@/components/ui/color-picker";
 import { useContext, useState } from "react";
 import { ColorContext } from "../settings-logic/color/ColorContext";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useSettings } from "../settings-logic/SettingsContext";
+import { ColorPicker } from "@/components/ui/color-picker";
 
 export const ThemePicker = () => {
   const context = useContext(ColorContext);
@@ -21,20 +21,27 @@ export const ThemePicker = () => {
     setColorRight,
   } = context;
 
-  // Temporary state for staging changes - synced with applied theme
-  const [tempColorLeft, setTempColorLeft] = useState(colorLeft);
-  const [tempColorMiddle, setTempColorMiddle] = useState(colorMiddle);
-  const [tempColorRight, setTempColorRight] = useState(colorRight);
+  // Track pending edits
+  const [pendingColorLeft, setPendingColorLeft] = useState<string | null>(null);
+  const [pendingColorMiddle, setPendingColorMiddle] = useState<string | null>(
+    null,
+  );
+  const [pendingColorRight, setPendingColorRight] = useState<string | null>(
+    null,
+  );
 
-  // Sync temp colors when applied theme changes
-  if (tempColorLeft !== colorLeft) setTempColorLeft(colorLeft);
-  if (tempColorMiddle !== colorMiddle) setTempColorMiddle(colorMiddle);
-  if (tempColorRight !== colorRight) setTempColorRight(colorRight);
+  // Show pending value if editing, otherwise show applied value
+  const displayColorLeft = pendingColorLeft ?? colorLeft;
+  const displayColorMiddle = pendingColorMiddle ?? colorMiddle;
+  const displayColorRight = pendingColorRight ?? colorRight;
 
   const handleApplyChanges = () => {
-    setColorLeft(tempColorLeft);
-    setColorMiddle(tempColorMiddle);
-    setColorRight(tempColorRight);
+    if (pendingColorLeft !== null) setColorLeft(pendingColorLeft);
+    if (pendingColorMiddle !== null) setColorMiddle(pendingColorMiddle);
+    if (pendingColorRight !== null) setColorRight(pendingColorRight);
+    setPendingColorLeft(null);
+    setPendingColorMiddle(null);
+    setPendingColorRight(null);
   };
 
   return (
@@ -47,23 +54,23 @@ export const ThemePicker = () => {
       <ColorPicker
         className="w-10 cursor-pointer"
         onChange={(v) => {
-          setTempColorLeft(v);
+          setPendingColorLeft(v);
         }}
-        value={tempColorLeft}
+        value={displayColorLeft}
       />
       <ColorPicker
         className="w-10 cursor-pointer"
         onChange={(v) => {
-          setTempColorMiddle(v);
+          setPendingColorMiddle(v);
         }}
-        value={tempColorMiddle}
+        value={displayColorMiddle}
       />
       <ColorPicker
         className="w-10 cursor-pointer"
         onChange={(v) => {
-          setTempColorRight(v);
+          setPendingColorRight(v);
         }}
-        value={tempColorRight}
+        value={displayColorRight}
       />
       <Button
         className={`text-white cursor-pointer ${settings.useLiquidGlass ? "bg-white/30 backdrop-blur-lg border-white/30 shadow-sm shadow-white/20[text-shadow:0_2px_4px_rgba(163,163,163,0.8)]" : ""}`}

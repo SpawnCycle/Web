@@ -1,9 +1,10 @@
 import { useRef, useState, useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
-import { UpdateSheet } from "./Update-profile-sheet";
+
 import { Label } from "@/components/ui/label";
 import { useSettings } from "../Settings/settings-logic/SettingsContext";
+import { UpdateSheet } from "./update-profile-sheet";
 
 const username = "PlaceholderUserName";
 

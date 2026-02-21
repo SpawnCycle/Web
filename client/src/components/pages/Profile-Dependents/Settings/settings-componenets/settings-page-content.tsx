@@ -25,7 +25,17 @@ export function SettingsPageContent() {
       </div>
 
       {/* Middle Section */}
-      <div className="flex-1 flex items-center justify-center"></div>
+      <div className="flex-1 flex items-center justify-center flex-col gap-30">
+        <div>
+          <Label
+            className={`text-white ${settings.useLiquidGlass ? "[text-shadow:0_2px_4px_rgba(163,163,163,0.8)]" : ""}`}
+          >
+            Themes
+          </Label>
+        </div>
+        <div></div>
+        <div></div>
+      </div>
 
       {/* Right Section */}
       <div className="flex-1 flex items-center justify-center"></div>

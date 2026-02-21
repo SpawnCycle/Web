@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
 import { SettingsProvider } from "./components/pages/Profile-Dependents/Settings/settings-logic/SettingsContext";
 import { NavbarProvider } from "./context/NavbarContext";
+import { ColorProvider } from "./components/pages/Profile-Dependents/Settings/settings-logic/color/ColorProvider";
 import { PasswordResetForm } from "./components/Forms/Password-reset-form.tsx";
 import { ReleasesPage } from "./components/pages/main-pages/releases-page.tsx";
 import { AboutPage } from "./components/pages/main-pages/about-page.tsx";
@@ -42,9 +43,11 @@ createRoot(document.getElementById("root")!).render(
     <AuthProvider>
       <SettingsProvider>
         <NavbarProvider>
-          <Wrapper>
-            <RouterProvider router={router} />
-          </Wrapper>
+          <ColorProvider>
+            <Wrapper>
+              <RouterProvider router={router} />
+            </Wrapper>
+          </ColorProvider>
         </NavbarProvider>
       </SettingsProvider>
     </AuthProvider>
